@@ -1,13 +1,15 @@
 const crypto = require('crypto');
+var algorithm  = 'aes256';
+var key = 'mypassword';
+var name = 'Dilip';
+var cipher = crypto.createCipher(algorithm,key);
+var encrypted = cipher.update(name,'utf8','hex') + cipher.final('hex');
+var decipher = crypto.createDecipher(algorithm,key);
+var decrypted = decipher.update(encrypted,'hex', 'utf8') + decipher.final('utf8');
 
-function jwtFunction() { 
- var x= crypto.createCipher('aes-128-cbc', 'mypassword');
- var myname = x.update('dilip','utf8', 'hex')
- myname += x.final('hex')
-	console.log(myname);
-	var y= crypto.createDecipher('aes-128-cbc', 'mypassword');
-	var myname1 = y.update('14150dd219baf1bc3b83ba7b5047f029', 'hex' ,'utf-8')
-	myname1 += y.final('utf-8');
-	console.log(myname1);
+function myFunction(a, b){
+    return a + b;
 }
-jwtFunction();
+
+var finalOutput = myFunction(encrypted, decrypted);
+console.log(finalOutput);
